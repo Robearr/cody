@@ -1,13 +1,15 @@
-import { useKeycloakLogin } from './hooks/useKeycloakLogin';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Authenticated } from './utils/routes/Authenticated';
+import { IndexView } from './views/IndexView';
 
 function App() {
 
-  useKeycloakLogin();
-
   return (
-    <div>
-      <h1>Hello there</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<IndexView />} />
+      </Routes>
+    </Router>
   );
 }
 
