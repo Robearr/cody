@@ -1,0 +1,46 @@
+micronaut:
+  application:
+    name: cody
+  server:
+    port: 8000
+  http:
+    services:
+      keycloak:
+        url: 'https://robnn.dynu.net/keycloak/'
+  security:
+    authentication: bearer
+    endpoints:
+      login:
+        enabled: false
+    redirect:
+      login-success: /secure
+    token:
+      jwt:
+        signatures.jwks.keycloak:
+          url: https://robnn.dynu.net/keycloak/auth/realms/Cody/protocol/openid-connect/certs
+    oauth2:
+      clients:
+        keycloak:
+          grant-type: password
+          client-id: cody-backend
+          client-secret: 9724ee9b-a574-4476-a3bd-70bc467d1677
+          authorization:
+            url: https://robnn.dynu.net/keycloak/auth/realms/Cody/protocol/openid-connect/auth
+          token:
+            url: https://robnn.dynu.net/keycloak/auth/realms/Cody/protocol/openid-connect/token
+            auth-method: client-secret-post
+  executors:
+    io:
+      type: fixed
+      nThreads: 75
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE`}
+    username: ${JDBC_USER:sa}
+    password: ${JDBC_PASSWORD:""}
+    driverClassName: ${JDBC_DRIVER:org.h2.Driver}
+
+flyway:
+  datasources:
+    default:
+      enabled: true
