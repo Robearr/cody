@@ -74,9 +74,10 @@ class TaskService {
         return
     }
 
-    fun listTasks(pageable: Pageable): Page<TaskDTO> {
+    fun listTasks(pageable: Pageable): Page<Task> {
         //TODO
-        return Page.of(mapOfTasks.values.map { TaskDTO(it.taskName, it.taskDescription, it.classes) }, pageable,
+        return Page.of(mapOfTasks.values.map { Task(taskName = it.taskName, taskDescription = it.taskDescription,
+                taskForLanguages = it.taskForLanguages) }, pageable,
                 mapOfTasks.size.toLong())
     }
 
@@ -87,17 +88,27 @@ class TaskService {
         val taskRequest = mapOfTasks[solution.taskName] ?: return TaskEvaluationResponse()
         val isErroneousCompile = Random.nextBoolean()
         return if (isErroneousCompile)  {
-            TaskEvaluationResponse(null, debugCompilationError[(0 until debugCompilationError.size).random()])
+            TaskEvaluationResponse(language = ProgrammingLanguage.JAVA, compilerResultOutput = null,
+                    compilerResultError =
+            debugCompilationError[(0 until debugCompilationError
+                    .size).random()])
         } else {
             val isOkEvaluation = Random.nextBoolean()
-            val test = taskRequest.tests.firstOrNull()
+            val test = taskRequest.taskForLanguages.firstOrNull()?.tests?.firstOrNull()
             if (!isOkEvaluation) {
-                TaskEvaluationResponse(debugCompilationOutput[(0 until debugCompilationOutput.size).random()],
-                        null, mutableListOf(Evaluation(test?.className ?: "RandomTest", test?.testDescription,
-                        isOkEvaluation, debugExceptions[(0 until debugExceptions.size).random()])))
+                TaskEvaluationResponse(compilerResultOutput = debugCompilationOutput[(0 until debugCompilationOutput.size).random()],
+                        language = ProgrammingLanguage.JAVA,
+                        evaluations = mutableListOf(Evaluation(test?.className ?: "RandomTest",
+                                test?.testDescription,isOkEvaluation, debugExceptions[(0 until debugExceptions.size).random()])))
             } else {
-                TaskEvaluationResponse(debugCompilationOutput[(0 until debugCompilationOutput.size).random()],
-                        null, mutableListOf(Evaluation(test?.className ?: "RandomTest", test?.testDescription,
+                TaskEvaluationResponse(compilerResultOutput = debugCompilationOutput[(0 until debugCompilationOutput.size).random()],
+                        language = ProgrammingLanguage.JAVA,
+                        evaluations = mutableListOf(Evaluation(test?.className ?: "RandomTest",
+                                test?.testDescription,isOkEvaluation, debugExceptions[(0 until debugExceptions.size).random()])))
+
+                TaskEvaluationResponse(compilerResultOutput = debugCompilationOutput[(0 until debugCompilationOutput.size).random()],
+                        language = ProgrammingLanguage.JAVA,
+                        evaluations = mutableListOf(Evaluation(test?.className ?: "RandomTest", test?.testDescription,
                         isOkEvaluation, debugOutput[(0 until debugOutput.size).random()])))
             }
         }

@@ -1,9 +1,8 @@
 package hu.robnn.cody.api
 
 import hu.robnn.cody.model.Response
-import hu.robnn.cody.model.UserDTO
 import hu.robnn.cody.model.tasks.Solution
-import hu.robnn.cody.model.tasks.TaskDTO
+import hu.robnn.cody.model.tasks.Task
 import hu.robnn.cody.model.tasks.TaskRequest
 import hu.robnn.cody.model.tasks.TaskEvaluationResponse
 import hu.robnn.cody.service.TaskService
@@ -44,7 +43,7 @@ class TaskApi(private val taskService: TaskService,
     }
 
     @Post("/listTasks")
-    fun listTasks(pageable: Pageable): Publisher<MutableHttpResponse<Response<Page<TaskDTO>>>> {
+    fun listTasks(pageable: Pageable): Publisher<MutableHttpResponse<Response<Page<Task>>>> {
         return Mono.fromCallable {
             val listTasks = taskService.listTasks(pageable)
             HttpResponse.ok(Response(response = listTasks))

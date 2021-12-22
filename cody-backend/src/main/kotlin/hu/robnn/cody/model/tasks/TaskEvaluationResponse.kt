@@ -1,6 +1,10 @@
 package hu.robnn.cody.model.tasks
 
-data class TaskEvaluationResponse(val compilerResultOutput: String? = null,
+import java.util.*
+
+data class TaskEvaluationResponse(val uuid: String = UUID.randomUUID().toString(),
+                                  val language: ProgrammingLanguage? = null,
+                                  val compilerResultOutput: String? = null,
                                   val compilerResultError: String? = null,
                                   val evaluations: List<Evaluation> = mutableListOf())
 
