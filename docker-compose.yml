@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  backend:
+    build: ./cody-backend
+    ports:
+      - "8767:8000"
+    volumes:
+      - maven:/../root/.m2/repository
+  frontend:
+    build: ./cody-client
+    ports:
+      - "8766:3000"
+    volumes:
+      - node:/app/node_modules
+      - ./:/app
+volumes:
+  node:
+  maven:

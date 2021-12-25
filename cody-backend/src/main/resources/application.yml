@@ -1,8 +1,10 @@
 micronaut:
   router:
     static-resources:
-      swagger:
-        paths: classpath:META-INF/swagger
+      default:
+        enabled: true
+        paths:
+          - classpath:META-INF/swagger
         mapping: /swagger/**
   application:
     name: cody
@@ -17,8 +19,6 @@ micronaut:
     endpoints:
       login:
         enabled: false
-    redirect:
-      login-success: /secure
     token:
       jwt:
         signatures.jwks.keycloak:
@@ -34,6 +34,12 @@ micronaut:
           token:
             url: https://robnn.dynu.net/keycloak/auth/realms/Cody/protocol/openid-connect/token
             auth-method: client-secret-post
+    intercept-url-map:
+      -
+        pattern: /swagger/**
+        http-method: GET
+        access:
+          - isAnonymous()
   executors:
     io:
       type: fixed
