@@ -1,0 +1,238 @@
+import { Grid, Pagination } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
+import { Pageable } from '../types/Pageable';
+import { BaseResponse } from '../types/BaseResponse';
+import { Task } from '../types/Task';
+import { MessageContext } from '../providers/MessageProvider';
+
+interface TasksViewProps {};
+
+export const TasksView: React.FC<TasksViewProps> = () => {
+
+  const { addMessage } = useContext(MessageContext);
+
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [page, setPage] = useState<number>(0);
+
+  useEffect(() => {
+
+    // (async () => {
+    //   const body: Pageable = {
+    //     number: page,
+    //     size: 10,
+    //     offset: page * 10,
+    //     sort: {
+    //       sorted: true,
+    //       orderBy: [{
+    //         ignoreCase: true,
+    //         property: 'name',
+    //         direction: 'ASC',
+    //         ascending: true
+    //       }]
+    //     },
+    //     unpaged: false,
+    //     sorted: true
+    //   };
+
+    //   try {
+    //     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/task/listTasks`, {
+    //       method: 'POST',
+    //       body: JSON.stringify(body),
+    //     });
+
+    //     // TODO
+    //     // const tasksResponse: BaseResponse<Task[]> = await response.json();
+    //   } catch (e) {
+    //     addMessage({ severity: 'ERROR', message: 'Váratlan hiba történt!' });
+    //   }
+
+    // })();
+
+    setTasks([
+      {
+        "uuid": "string",
+        "taskName": "string",
+        "taskDescription": "string",
+        "taskForLanguages": [
+          {
+            "language": "JAVA",
+            "classes": [
+              {
+                "className": "string",
+                "classSource": "string"
+              }
+            ],
+            "tests": [
+              {
+                "className": "string",
+                "classSource": "string",
+                "testDescription": "string",
+                "methodToCall": "string",
+                "methodParams": {
+                  "additionalProp1": {}
+                },
+                "timingTest": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "string",
+        "taskName": "string",
+        "taskDescription": "string",
+        "taskForLanguages": [
+          {
+            "language": "JAVA",
+            "classes": [
+              {
+                "className": "string",
+                "classSource": "string"
+              }
+            ],
+            "tests": [
+              {
+                "className": "string",
+                "classSource": "string",
+                "testDescription": "string",
+                "methodToCall": "string",
+                "methodParams": {
+                  "additionalProp1": {}
+                },
+                "timingTest": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "string",
+        "taskName": "string",
+        "taskDescription": "string",
+        "taskForLanguages": [
+          {
+            "language": "JAVA",
+            "classes": [
+              {
+                "className": "string",
+                "classSource": "string"
+              }
+            ],
+            "tests": [
+              {
+                "className": "string",
+                "classSource": "string",
+                "testDescription": "string",
+                "methodToCall": "string",
+                "methodParams": {
+                  "additionalProp1": {}
+                },
+                "timingTest": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "string",
+        "taskName": "string",
+        "taskDescription": "string",
+        "taskForLanguages": [
+          {
+            "language": "JAVA",
+            "classes": [
+              {
+                "className": "string",
+                "classSource": "string"
+              }
+            ],
+            "tests": [
+              {
+                "className": "string",
+                "classSource": "string",
+                "testDescription": "string",
+                "methodToCall": "string",
+                "methodParams": {
+                  "additionalProp1": {}
+                },
+                "timingTest": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "string",
+        "taskName": "string",
+        "taskDescription": "string",
+        "taskForLanguages": [
+          {
+            "language": "JAVA",
+            "classes": [
+              {
+                "className": "string",
+                "classSource": "string"
+              }
+            ],
+            "tests": [
+              {
+                "className": "string",
+                "classSource": "string",
+                "testDescription": "string",
+                "methodToCall": "string",
+                "methodParams": {
+                  "additionalProp1": {}
+                },
+                "timingTest": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "string",
+        "taskName": "string",
+        "taskDescription": "string",
+        "taskForLanguages": [
+          {
+            "language": "JAVA",
+            "classes": [
+              {
+                "className": "string",
+                "classSource": "string"
+              }
+            ],
+            "tests": [
+              {
+                "className": "string",
+                "classSource": "string",
+                "testDescription": "string",
+                "methodToCall": "string",
+                "methodParams": {
+                  "additionalProp1": {}
+                },
+                "timingTest": true
+              }
+            ]
+          }
+        ]
+      },
+    ]);
+
+  }, [page, addMessage]);
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value - 1);
+  };
+
+  return (
+    <Grid container spacing={2}>
+      {tasks.map((task: Task) => (
+        <Grid item xs={12} sm={6} md={4} key={task.uuid}>
+          {task.uuid}
+        </Grid>
+      ))}
+    </Grid>
+    // <Pagination page={page + 1} count={10} onChange={handlePageChange} />
+  );
+};
