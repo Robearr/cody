@@ -1,4 +1,4 @@
-import { Grid, Pagination } from '@mui/material';
+import { Button, Grid, Pagination } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { Pageable } from '../types/Pageable';
 import { BaseResponse } from '../types/BaseResponse';
@@ -48,177 +48,6 @@ export const TasksView: React.FC<TasksViewProps> = () => {
 
     // })();
 
-    setTasks([
-      {
-        "uuid": "string",
-        "taskName": "string",
-        "taskDescription": "string",
-        "taskForLanguages": [
-          {
-            "language": "JAVA",
-            "classes": [
-              {
-                "className": "string",
-                "classSource": "string"
-              }
-            ],
-            "tests": [
-              {
-                "className": "string",
-                "classSource": "string",
-                "testDescription": "string",
-                "methodToCall": "string",
-                "methodParams": {
-                  "additionalProp1": {}
-                },
-                "timingTest": true
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "uuid": "string",
-        "taskName": "string",
-        "taskDescription": "string",
-        "taskForLanguages": [
-          {
-            "language": "JAVA",
-            "classes": [
-              {
-                "className": "string",
-                "classSource": "string"
-              }
-            ],
-            "tests": [
-              {
-                "className": "string",
-                "classSource": "string",
-                "testDescription": "string",
-                "methodToCall": "string",
-                "methodParams": {
-                  "additionalProp1": {}
-                },
-                "timingTest": true
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "uuid": "string",
-        "taskName": "string",
-        "taskDescription": "string",
-        "taskForLanguages": [
-          {
-            "language": "JAVA",
-            "classes": [
-              {
-                "className": "string",
-                "classSource": "string"
-              }
-            ],
-            "tests": [
-              {
-                "className": "string",
-                "classSource": "string",
-                "testDescription": "string",
-                "methodToCall": "string",
-                "methodParams": {
-                  "additionalProp1": {}
-                },
-                "timingTest": true
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "uuid": "string",
-        "taskName": "string",
-        "taskDescription": "string",
-        "taskForLanguages": [
-          {
-            "language": "JAVA",
-            "classes": [
-              {
-                "className": "string",
-                "classSource": "string"
-              }
-            ],
-            "tests": [
-              {
-                "className": "string",
-                "classSource": "string",
-                "testDescription": "string",
-                "methodToCall": "string",
-                "methodParams": {
-                  "additionalProp1": {}
-                },
-                "timingTest": true
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "uuid": "string",
-        "taskName": "string",
-        "taskDescription": "string",
-        "taskForLanguages": [
-          {
-            "language": "JAVA",
-            "classes": [
-              {
-                "className": "string",
-                "classSource": "string"
-              }
-            ],
-            "tests": [
-              {
-                "className": "string",
-                "classSource": "string",
-                "testDescription": "string",
-                "methodToCall": "string",
-                "methodParams": {
-                  "additionalProp1": {}
-                },
-                "timingTest": true
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "uuid": "string",
-        "taskName": "string",
-        "taskDescription": "string",
-        "taskForLanguages": [
-          {
-            "language": "JAVA",
-            "classes": [
-              {
-                "className": "string",
-                "classSource": "string"
-              }
-            ],
-            "tests": [
-              {
-                "className": "string",
-                "classSource": "string",
-                "testDescription": "string",
-                "methodToCall": "string",
-                "methodParams": {
-                  "additionalProp1": {}
-                },
-                "timingTest": true
-              }
-            ]
-          }
-        ]
-      },
-    ]);
-
   }, [page, addMessage]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -226,13 +55,14 @@ export const TasksView: React.FC<TasksViewProps> = () => {
   };
 
   return (
-    <Grid container spacing={2}>
-      {tasks.map((task: Task) => (
-        <Grid item xs={12} sm={6} md={4} key={task.uuid}>
-          {task.uuid}
-        </Grid>
-      ))}
-    </Grid>
+    <Button variant='contained' href='/new-task'>Új feladat</Button>
+    // <Grid container spacing={2}>
+    //   {tasks.map((task: Task) => (
+    //     <Grid item xs={12} sm={6} md={4} key={task.uuid}>
+    //       {task.uuid}
+    //     </Grid>
+    //   ))}
+    // </Grid>
     // <Pagination page={page + 1} count={10} onChange={handlePageChange} />
   );
 };

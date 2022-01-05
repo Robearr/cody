@@ -8,7 +8,7 @@ interface KeycloakContextProps {
 const keycloak = Keycloak({
   realm: process.env.REACT_APP_REALM_NAME,
   clientId: process.env.REACT_APP_CLIENT_ID,
-  url: `${process.env.REACT_APP_API_BASE_URL}/auth`,
+  url: `${process.env.REACT_APP_KEYCLOAK_URL}/auth`,
 });
 
 export const KeycloakContext = createContext<KeycloakContextProps>({ keycloak });

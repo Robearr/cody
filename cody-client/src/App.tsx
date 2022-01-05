@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Message, MessageContext } from './providers/MessageProvider';
 import { Authenticated } from './utils/routes/Authenticated';
 import { IndexView } from './views/IndexView';
+import { NewTaskView } from './views/NewTaskView';
 import { TasksView } from './views/TasksView';
 
 function App() {
@@ -12,10 +13,11 @@ function App() {
 
   return (
     <div>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router /*basename={process.env.PUBLIC_URL}*/>
         <Routes>
           <Route path='/' element={<IndexView />} />
           <Route path='/tasks' element={<TasksView />} />
+          <Route path='/new-task' element={<NewTaskView />} />
         </Routes>
       </Router>
 

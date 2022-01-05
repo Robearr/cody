@@ -1,19 +1,19 @@
-type ClassType = {
+export type ClassType = {
   className: string;
   classSource: string;
 };
 
-type TestType = {
+export type TestType = {
   className: string;
   classSource: string;
   testDescription: string;
   methodToCall: string;
-  methodParams: any; // TODO
+  methodParams: Record<string, any>;
   timingTest: boolean;
 };
 
-type TaskForLanguageType = {
-  language: 'JAVA' | 'KOTLIN' | 'JAVASCRIPT';
+export type TaskForLanguageType = {
+  language: string;
   classes: ClassType[];
   tests: TestType[];
 };
