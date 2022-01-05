@@ -10,6 +10,12 @@ micronaut:
     name: cody
   server:
     port: 8000
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - http://localhost:3000
   http:
     services:
       keycloak:
