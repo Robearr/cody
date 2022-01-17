@@ -14,4 +14,12 @@
   transform: translate(-50%, -50%);
   width: auto;
   z-index: 9999;
+
+  .MuiFormControl-root {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

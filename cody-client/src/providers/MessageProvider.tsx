@@ -20,6 +20,7 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({ children }) =>
 
   const addMessage = (message: Message) => {
     setMessages([...messages, message]);
+    setTimeout(() => removeMessage(message), 5000);
   };
 
   const removeMessage = (message: Message) => {

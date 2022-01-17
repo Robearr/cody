@@ -6,6 +6,7 @@ import { Authenticated } from './utils/routes/Authenticated';
 import { IndexView } from './views/IndexView';
 import { NewTaskView } from './views/NewTaskView';
 import { TasksView } from './views/TasksView';
+import './styles/common.scss';
 
 function App() {
 

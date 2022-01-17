@@ -1,13 +1,17 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TaskForLanguageType } from "../types/Task";
 import { LanguageForm } from "../ui/LanguageForm";
+import { MessageContext } from '../providers/MessageProvider';
+import '../styles/form.scss';
 
 interface NewTaskViewProps {};
 
 export const NewTaskView: React.FC<NewTaskViewProps> = () => {
   const [taskForLanguages, setTaskForLanguages] = useState<TaskForLanguageType[]>([]);
+
+  const { addMessage } = useContext(MessageContext);
 
   const formik = useFormik({
     initialValues: {
@@ -19,45 +23,52 @@ export const NewTaskView: React.FC<NewTaskViewProps> = () => {
 
   const createNewTaskForLanguage = (): void => {
     setTaskForLanguages([...taskForLanguages, {
-      language: '',
+      language: `Nyelv #${taskForLanguages.length + 1}`,
       classes: [],
       tests: []
     }]);
   };
 
+  const removeLanguage = (ind: number) => {
+    taskForLanguages.splice(ind, 1);
+    setTaskForLanguages([...taskForLanguages]);
+  };
+
   const saveTask = (): void => {
+
+    const taskRequest = {
+      taskName: formik.values.taskName,
+      taskDescription: formik.values.taskDescription,
+      taskForLanguages
+    };
+
     fetch(`${process.env.REACT_APP_API_BASE_URL}/task`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(taskForLanguages)
-    });
+      body: JSON.stringify({ taskRequest })
+    }).catch((err) => addMessage({ severity: 'ERROR', message: 'Váratlan hiba történt a mentés során!' }));
   };
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField id='taskName' label='Feladat neve' value={formik.values.taskName} onChange={formik.handleChange} />
-        <TextField id='taskDescription' label='Feladat leírása' multiline value={formik.values.taskDescription} onChange={formik.handleChange} />
-      </form>
+    <div className='form-container'>
+      <div className='form'>
+        <Typography variant='h4' className='title'>Új feladat</Typography>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField id='taskName' label='Feladat neve' value={formik.values.taskName} onChange={formik.handleChange} fullWidth />
+          <TextField id='taskDescription' label='Feladat leírása' multiline value={formik.values.taskDescription} onChange={formik.handleChange} fullWidth />
+        </form>
 
-      <h1>Nyelvek</h1>
-      <Button variant='contained' onClick={createNewTaskForLanguage}>Új nyelv</Button>
-      <h1>{taskForLanguages.length}</h1>
-      {taskForLanguages.map((taskForLanguage: TaskForLanguageType, ind: number) => (
-        <>
-          <LanguageForm taskForLanguage={taskForLanguage} key={taskForLanguage.language}/>
-          <br />
-          <hr />
-        </>
-      ))}
+        <Typography variant='h4'>Nyelvek</Typography>
 
-      <br />
-      <br />
-      <br />
-      <br />
-      <Button variant='contained' onClick={saveTask}>Mentés</Button>
+        {taskForLanguages.map((taskForLanguage: TaskForLanguageType, ind: number) => (
+          <LanguageForm taskForLanguage={taskForLanguage} key={taskForLanguage.language} removeLanguage={() => removeLanguage(ind)}/>
+        ))}
+
+        <Button variant='contained' onClick={createNewTaskForLanguage}>Új nyelv</Button>
+        <Button variant='contained' onClick={saveTask} className='float-right'>Mentés</Button>
+      </div>
     </div>
   );
 };
