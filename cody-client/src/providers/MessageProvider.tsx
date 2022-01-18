@@ -19,12 +19,19 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({ children }) =>
   const [messages, setMessages] = useState<Message[]>([]);
 
   const addMessage = (message: Message) => {
-    setMessages([...messages, message]);
-    setTimeout(() => removeMessage(message), 5000);
+    const shouldAdd: boolean = messages.findIndex((m: Message) => m.message === message.message) === -1;
+    if (shouldAdd) {
+      setMessages([...messages, message]);
+
+      const timeout = setTimeout(() => {
+        removeMessage(message);
+        clearTimeout(timeout);
+      }, 5_000);
+    }
   };
 
   const removeMessage = (message: Message) => {
-    setMessages(messages.filter(m => m !== message));
+    setMessages(messages.filter((m: Message) => m !== message));
   };
 
   return (
