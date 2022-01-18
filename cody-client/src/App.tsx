@@ -24,7 +24,7 @@ function App() {
         <Link href='/tasks' color='inherit'><Typography variant='h6'>Feladatok</Typography></Link>
         <Link href='/new-task' color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
       </AppBar>
-      <Router /*basename={process.env.PUBLIC_URL}*/>
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path='/' element={<IndexView />} />
           <Route path='/tasks' element={<TasksView />} />

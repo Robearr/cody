@@ -16,39 +16,39 @@ export const TasksView: React.FC<TasksViewProps> = () => {
 
   useEffect(() => {
 
-    // (async () => {
-    //   const body: Pageable = {
-    //     number: page,
-    //     size: 10,
-    //     offset: page * 10,
-    //     sort: {
-    //       sorted: true,
-    //       orderBy: [{
-    //         ignoreCase: true,
-    //         property: 'name',
-    //         direction: 'ASC',
-    //         ascending: true
-    //       }]
-    //     },
-    //     unpaged: false,
-    //     sorted: true
-    //   };
+    (async () => {
+      const body: Pageable = {
+        number: page,
+        size: 10,
+        offset: page * 10,
+        sort: {
+          sorted: true,
+          orderBy: [{
+            ignoreCase: true,
+            property: 'name',
+            direction: 'ASC',
+            ascending: true
+          }]
+        },
+        unpaged: false,
+        sorted: true
+      };
 
-    //   try {
-    //     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/task/listTasks`, {
-    //       method: 'POST',
-    //       body: JSON.stringify(body),
-    //     });
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/task/listTasks`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+        });
 
-    //     // TODO
-    //     // const tasksResponse: BaseResponse<Task[]> = await response.json();
-    //   } catch (e) {
-    //     addMessage({ severity: 'ERROR', message: 'Váratlan hiba történt!' });
-    //   }
+        // TODO
+        // const tasksResponse: BaseResponse<Task[]> = await response.json();
+      } catch (e) {
+        addMessage({ severity: 'ERROR', message: 'Váratlan hiba történt a feladatok lekérdezése közben!' });
+      }
 
-    // })();
+    })();
 
-  }, [page, addMessage]);
+  }, [page]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value - 1);
