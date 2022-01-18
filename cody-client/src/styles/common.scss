@@ -1,0 +1,33 @@
+.flex {
+  display: flex;
+
+  &.space-between {
+    justify-content: space-between;
+  }
+
+  &.flex-end {
+    justify-content: flex-end;
+  }
+
+  &.center {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.margin-top {
+  margin-top: 1rem;
+}
+
+.margin-bottom {
+  margin-bottom: 1rem;
+}
+
+.float-right {
+  float: right;
+}
+
+.margin-vertical {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

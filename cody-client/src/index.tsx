@@ -1,11 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { KeycloakProvider } from './providers/KeycloakProvider';
+import { MessageProvider } from './providers/MessageProvider';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MessageProvider>
+      <KeycloakProvider>
+        <App />
+      </KeycloakProvider>
+    </MessageProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
