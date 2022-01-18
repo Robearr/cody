@@ -18,11 +18,11 @@ function App() {
   return (
     <div>
       <AppBar position='static' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-        <Link href='/'>
+        <Link href={process.env.PUBLIC_URL}>
           <img src={logo} alt='logo' style={{ width: '20%' }}/>
         </Link>
-        <Link href='/tasks' color='inherit'><Typography variant='h6'>Feladatok</Typography></Link>
-        <Link href='/new-task' color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
+        <Link href={`${process.env.PUBLIC_URL}/tasks`} color='inherit'><Typography variant='h6'>Feladatok</Typography></Link>
+        <Link href={`${process.env.PUBLIC_URL}/new-task`} color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
       </AppBar>
       <Router basename={process.env.PUBLIC_URL}>
         <Routes>
