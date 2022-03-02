@@ -1,6 +1,6 @@
-import { Alert, Snackbar, AlertColor, AppBar, Link, Typography } from '@mui/material';
+import { Alert, Snackbar, AlertColor, AppBar, Typography } from '@mui/material';
 import { useContext } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { Message, MessageContext } from './providers/MessageProvider';
 import { Authenticated } from './utils/routes/Authenticated';
 import { IndexView } from './views/IndexView';
@@ -17,14 +17,14 @@ function App() {
 
   return (
     <div>
-      <AppBar position='static' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-        <Link href={process.env.PUBLIC_URL}>
-          <img src={logo} alt='logo' style={{ width: '20%' }}/>
-        </Link>
-        <Link href={`${process.env.PUBLIC_URL}/tasks`} color='inherit'><Typography variant='h6'>Feladatok</Typography></Link>
-        <Link href={`${process.env.PUBLIC_URL}/new-task`} color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
-      </AppBar>
       <Router basename={process.env.PUBLIC_URL}>
+        <AppBar position='static' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+          <Link to={process.env.PUBLIC_URL}>
+            <img src={logo} alt='logo' style={{ width: '20%' }}/>
+          </Link>
+          <Link to={`/tasks`} color='inherit'><Typography variant='h6'>Feladatok</Typography></Link>
+          <Link to={`/new-task`} color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
+        </AppBar>
         <Routes>
           <Route path='/' element={<IndexView />} />
           <Route path='/tasks' element={<TasksView />} />

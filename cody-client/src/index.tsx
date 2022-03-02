@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './App';
-import { KeycloakProvider } from './providers/KeycloakProvider';
 import { MessageProvider } from './providers/MessageProvider';
+import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <MessageProvider>
-      <KeycloakProvider>
+      <Provider store={store}>
         <App />
-      </KeycloakProvider>
+      </Provider>
     </MessageProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,22 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
 import { useKeycloakLogin } from '../hooks/useKeycloakLogin';
-import { KeycloakContext } from '../providers/KeycloakProvider';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 interface IndexViewProps {};
 
 export const IndexView: React.FC<IndexViewProps> = () => {
 
   useKeycloakLogin();
-  const { keycloak } = useContext(KeycloakContext);
-  const [token, setToken] = useState<string>('');
 
-  useEffect(() => {
-    keycloak.onReady = () => {
-      if (keycloak?.token) {
-        setToken(keycloak.token);
-      }
-    };
-  }, [keycloak]);
+  const { token } = useTypedSelector((state) => state.keycloak);
 
   const copyToken = (): void => {
     navigator.clipboard.writeText(token);

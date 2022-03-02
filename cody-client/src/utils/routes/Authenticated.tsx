@@ -1,15 +1,14 @@
-import { useContext } from "react";
 import { Navigate } from "react-router";
-import { KeycloakContext } from "../../providers/KeycloakProvider";
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 interface AuthenticatedProps {};
 
 export const Authenticated: React.FC<AuthenticatedProps> = ({ children }) => {
-  const { keycloak } = useContext(KeycloakContext);
+  const { token } = useTypedSelector((state) => state.keycloak);
 
   return (
     <>
-      {keycloak?.token && !keycloak?.isTokenExpired() ?
+      {token ?
         children :
         <Navigate to='/' />
       }

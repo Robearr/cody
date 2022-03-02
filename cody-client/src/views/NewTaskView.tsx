@@ -4,6 +4,8 @@ import { useContext, useState } from "react";
 import { TaskForLanguageType } from "../types/Task";
 import { LanguageForm } from "../ui/LanguageForm";
 import { MessageContext } from '../providers/MessageProvider';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+
 import '../styles/form.scss';
 
 interface NewTaskViewProps {};
@@ -12,6 +14,8 @@ export const NewTaskView: React.FC<NewTaskViewProps> = () => {
   const [taskForLanguages, setTaskForLanguages] = useState<TaskForLanguageType[]>([]);
 
   const { addMessage } = useContext(MessageContext);
+
+  const { token } = useTypedSelector((state) => state.keycloak);
 
   const formik = useFormik({
     initialValues: {
@@ -42,10 +46,12 @@ export const NewTaskView: React.FC<NewTaskViewProps> = () => {
       taskForLanguages
     };
 
+
     fetch(`${process.env.REACT_APP_API_BASE_URL}/task`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ taskRequest })
     }).catch((err) => addMessage({ severity: 'ERROR', message: 'Váratlan hiba történt a mentés során!' }));
