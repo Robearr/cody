@@ -3,9 +3,9 @@ import { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { Message, MessageContext } from './providers/MessageProvider';
 import { Authenticated } from './utils/routes/Authenticated';
-import { IndexView } from './views/IndexView';
-import { NewTaskView } from './views/NewTaskView';
-import { TasksView } from './views/TasksView';
+import { Index } from './pages/Index';
+import { NewTask } from './pages/task/NewTask';
+import { Tasks } from './pages/task/Tasks';
 import { CountDownCloseButton } from './ui/CountDownCloseButton';
 
 import logo from './images/logo.png';
@@ -26,9 +26,9 @@ function App() {
           <Link to={`/new-task`} color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
         </AppBar>
         <Routes>
-          <Route path='/' element={<IndexView />} />
-          <Route path='/tasks' element={<TasksView />} />
-          <Route path='/new-task' element={<NewTaskView />} />
+          <Route path='/' element={<Index />} />
+          <Route path='/tasks' element={<Tasks />} />
+          <Route path='/new-task' element={<NewTask />} />
         </Routes>
       </Router>
 

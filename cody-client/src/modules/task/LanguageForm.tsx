@@ -1,13 +1,15 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { ClassType, TaskForLanguageType, TestType } from "../types/Task";
-import { ClassForm } from "./ClassForm";
-import { CodyModal } from "./CodyModal";
-import { TestForm } from "./TestForm";
-import '../styles/form.scss';
+import { ClassType, TaskForLanguageType, TestType } from "../../types/Task";
+import { ClassForm } from "../../modules/task/ClassForm";
+import { CodyModal } from "../../ui/CodyModal";
+import { TestForm } from "../../modules/task/TestForm";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import '../../styles/form.scss';
+
 interface LanguageFormProps {
   taskForLanguage: TaskForLanguageType;
   removeLanguage: () => void;

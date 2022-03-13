@@ -1,9 +1,9 @@
 import { useKeycloakLogin } from '../hooks/useKeycloakLogin';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
-interface IndexViewProps {};
+interface IndexProps {};
 
-export const IndexView: React.FC<IndexViewProps> = () => {
+export const Index: React.FC<IndexProps> = () => {
 
   useKeycloakLogin();
 

@@ -1,13 +1,13 @@
 import { Button, Grid, Pagination } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
-import { Pageable } from '../types/Pageable';
-import { BaseResponse } from '../types/BaseResponse';
-import { Task } from '../types/Task';
-import { MessageContext } from '../providers/MessageProvider';
+import { Pageable } from '../../types/Pageable';
+import { BaseResponse } from '../../types/BaseResponse';
+import { Task } from '../../types/Task';
+import { MessageContext } from '../../providers/MessageProvider';
 
-interface TasksViewProps {};
+interface TasksProps {};
 
-export const TasksView: React.FC<TasksViewProps> = () => {
+export const Tasks: React.FC<TasksProps> = () => {
 
   const { addMessage } = useContext(MessageContext);
 

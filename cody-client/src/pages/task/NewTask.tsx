@@ -1,16 +1,16 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { useContext, useState } from "react";
-import { TaskForLanguageType } from "../types/Task";
-import { LanguageForm } from "../ui/LanguageForm";
-import { MessageContext } from '../providers/MessageProvider';
-import { useTypedSelector } from '../hooks/useTypedSelector';
+import { TaskForLanguageType } from "../../types/Task";
+import { LanguageForm } from "../../modules/task/LanguageForm";
+import { MessageContext } from '../../providers/MessageProvider';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-import '../styles/form.scss';
+import '../../styles/form.scss';
 
-interface NewTaskViewProps {};
+interface NewTaskProps {};
 
-export const NewTaskView: React.FC<NewTaskViewProps> = () => {
+export const NewTask: React.FC<NewTaskProps> = () => {
   const [taskForLanguages, setTaskForLanguages] = useState<TaskForLanguageType[]>([]);
 
   const { addMessage } = useContext(MessageContext);
