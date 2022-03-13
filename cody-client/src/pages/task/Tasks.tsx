@@ -4,18 +4,16 @@ import { Pageable } from '../../types/Pageable';
 import { BaseResponse } from '../../types/BaseResponse';
 import { Task } from '../../types/Task';
 import { MessageContext } from '../../providers/MessageProvider';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useAjax } from '../../hooks/useAjax';
 
 interface TasksProps {};
 
 export const Tasks: React.FC<TasksProps> = () => {
-
-  const { addMessage } = useContext(MessageContext);
-
-  const { token } = useTypedSelector((state) => state.keycloak);
-
   const [tasks, setTasks] = useState<Task[]>([]);
   const [page, setPage] = useState<number>(0);
+
+  const { addMessage } = useContext(MessageContext);
+  const { ajax, isLoading } = useAjax();
 
   useEffect(() => {
 
@@ -38,14 +36,7 @@ export const Tasks: React.FC<TasksProps> = () => {
       };
 
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/task/listTasks`, {
-          method: 'POST',
-          body: JSON.stringify(body),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          }
-        });
+        const response = await ajax.post('/task/listTasks', body);
 
         // TODO
         // const tasksResponse: BaseResponse<Task[]> = await response.json();

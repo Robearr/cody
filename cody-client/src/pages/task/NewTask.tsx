@@ -1,21 +1,18 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { TaskForLanguageType } from "../../types/Task";
 import { LanguageForm } from "../../modules/task/LanguageForm";
-import { MessageContext } from '../../providers/MessageProvider';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 import '../../styles/form.scss';
+import { useAjax } from '../../hooks/useAjax';
 
 interface NewTaskProps {};
 
 export const NewTask: React.FC<NewTaskProps> = () => {
   const [taskForLanguages, setTaskForLanguages] = useState<TaskForLanguageType[]>([]);
 
-  const { addMessage } = useContext(MessageContext);
-
-  const { token } = useTypedSelector((state) => state.keycloak);
+  const { ajax } = useAjax();
 
   const formik = useFormik({
     initialValues: {
@@ -46,15 +43,7 @@ export const NewTask: React.FC<NewTaskProps> = () => {
       taskForLanguages
     };
 
-
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/task`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ taskRequest })
-    }).catch((err) => addMessage({ severity: 'ERROR', message: 'Váratlan hiba történt a mentés során!' }));
+    ajax.post('/task', { taskRequest });
   };
 
   return (
