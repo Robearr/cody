@@ -1,11 +1,8 @@
-import { useKeycloakLogin } from '../hooks/useKeycloakLogin';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
 interface IndexProps {};
 
 export const Index: React.FC<IndexProps> = () => {
-
-  useKeycloakLogin();
 
   const { token } = useTypedSelector((state) => state.keycloak);
 

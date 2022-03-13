@@ -13,33 +13,47 @@ export const useKeycloakLogin = () => {
     url: `${process.env.REACT_APP_KEYCLOAK_URL}/auth`,
   });
 
+  const saveToken = (token: string | null) => {
+    if (token) {
+      localStorage.setItem('cody-token', token);
+    } else {
+      localStorage.removeItem('cody-token');
+    }
+
+    dispatch(setKeycloakToken(token));
+  };
+
   useEffect(() => {
+
+    if (localStorage.getItem('cody-token')) {
+      dispatch(setKeycloakToken(localStorage.getItem('cody-token')));
+    }
 
     keycloak.onTokenExpired = () => {
       keycloak.updateToken(30).then(() => {
-        dispatch(setKeycloakToken(keycloak.token));
+        saveToken(keycloak.token);
       });
     };
 
     keycloak.onAuthSuccess = () => {
-      dispatch(setKeycloakToken(keycloak.token));
+      saveToken(keycloak.token);
     };
 
     keycloak.onAuthError = () => {
-      dispatch(setKeycloakToken(null));
+      saveToken(null);
     };
 
     keycloak.onAuthRefreshSuccess = () => {
-      dispatch(setKeycloakToken(keycloak.token));
+      saveToken(keycloak.token);
     };
 
     keycloak.onAuthRefreshError = () => {
-      dispatch(setKeycloakToken(null));
+      saveToken(null);
     };
 
     keycloak.onReady = () => {
       if (keycloak.authenticated) {
-        dispatch(setKeycloakToken(keycloak.token));
+        saveToken(keycloak.token);
       }
     };
 
@@ -48,7 +62,6 @@ export const useKeycloakLogin = () => {
         if (!auth) {
           keycloak.login();
         }
-
       }
     );
   }, []);

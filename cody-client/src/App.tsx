@@ -19,16 +19,18 @@ function App() {
     <div>
       <Router basename={process.env.PUBLIC_URL}>
         <AppBar position='static' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-          <Link to={process.env.PUBLIC_URL}>
+          <Link to={'/'}>
             <img src={logo} alt='logo' style={{ width: '20%' }}/>
           </Link>
           <Link to={`/tasks`} color='inherit'><Typography variant='h6'>Feladatok</Typography></Link>
           <Link to={`/new-task`} color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
         </AppBar>
         <Routes>
-          <Route path='/' element={<Index />} />
-          <Route path='/tasks' element={<Tasks />} />
-          <Route path='/new-task' element={<NewTask />} />
+          <Route path='/' element={<Authenticated />}>
+            <Route path='/' element={<Index />} />
+            <Route path='/tasks' element={<Tasks />} />
+            <Route path='/new-task' element={<NewTask />} />
+          </Route>
         </Routes>
       </Router>
 
