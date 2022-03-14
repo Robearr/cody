@@ -21,7 +21,7 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({ children }) =>
   const addMessage = (message: Message) => {
     const shouldAdd: boolean = messages.findIndex((m: Message) => m.message === message.message) === -1;
     if (shouldAdd) {
-      setMessages([...messages, message]);
+      setMessages((prevMessages) => [...prevMessages, message]);
 
       const timeout = setTimeout(() => {
         removeMessage(message);
