@@ -1,68 +1,137 @@
-import { Button, TextField, Typography } from "@mui/material";
-import { useFormik } from "formik";
+import { Button, Typography } from "@mui/material";
 import { useState } from "react";
-import { TaskForLanguageType } from "../../types/Task";
+import { Task, TaskForLanguageType } from "../../types/Task";
 import { LanguageForm } from "../../modules/task/LanguageForm";
 
 import '../../styles/form.scss';
 import { useAjax } from '../../hooks/useAjax';
+import { CodyForm } from '../../ui/form/CodyForm';
+import { InputField } from '../../ui/form/InputField';
 
-interface NewTaskProps {};
+interface NewTaskProps { };
 
 export const NewTask: React.FC<NewTaskProps> = () => {
-  const [taskForLanguages, setTaskForLanguages] = useState<TaskForLanguageType[]>([]);
+  const [task, setTask] = useState<Task>({
+    taskDescription: '',
+    taskName: '',
+    taskForLanguages: [{
+      language: null,
+      classes: [{
+        className: '',
+        classSource: ''
+      }],
+      tests: [{
+        className: '',
+        classSource: '',
+        methodParams: {},
+        methodToCall: '',
+        testDescription: '',
+        timingTest: false
+      }]
+    }],
+  } as Task);
 
   const { ajax } = useAjax();
 
-  const formik = useFormik({
-    initialValues: {
-      taskName: '',
-      taskDescription: ''
-    },
-    onSubmit: (values) => {}
-  });
-
-  const createNewTaskForLanguage = (): void => {
-    setTaskForLanguages([...taskForLanguages, {
-      language: `Nyelv #${taskForLanguages.length + 1}`,
-      classes: [],
-      tests: []
-    }]);
-  };
-
   const removeLanguage = (ind: number) => {
-    taskForLanguages.splice(ind, 1);
-    setTaskForLanguages([...taskForLanguages]);
+    setTask({
+      ...task,
+      taskForLanguages: task.taskForLanguages.filter((_, i) => i !== ind)
+    });
   };
 
-  const saveTask = (): void => {
+  const addLanguage = () => {
+    setTask({
+      ...task,
+      taskForLanguages: task.taskForLanguages.concat({
+        language: null,
+        classes: [{
+          className: '',
+          classSource: ''
+        }],
+        tests: [{
+          className: '',
+          classSource: '',
+          methodParams: {},
+          methodToCall: '',
+          testDescription: '',
+          timingTest: false
+        }]
+      })
+    });
+  };
 
-    const taskRequest = {
-      taskName: formik.values.taskName,
-      taskDescription: formik.values.taskDescription,
-      taskForLanguages
-    };
+  const removeGroup = (group: 'test' | 'class', ind: number) => {
+    setTask({
+      ...task,
+      taskForLanguages: task.taskForLanguages.map((lang, i) => {
+        if (i === ind) {
+          if (group === 'test') {
+            lang.tests = lang.tests.filter((_, i) => i !== ind);
+          } else if (group === 'class') {
+            lang.classes = lang.classes.filter((_, i) => i !== ind);
+          }
+        }
+        return lang;
+      })
+    });
+  };
 
-    ajax.post('/task', { taskRequest });
+  const addNewGroup = (group: 'test' | 'class') => {
+    setTask({
+      ...task,
+      taskForLanguages: task.taskForLanguages.map((lang, i) => {
+        if (group === 'test') {
+          lang.tests.push({
+            className: '',
+            classSource: '',
+            methodParams: {},
+            methodToCall: '',
+            testDescription: '',
+            timingTest: false
+          });
+        } else if (group === 'class') {
+          lang.classes.push({
+            className: '',
+            classSource: ''
+          });
+        }
+        return lang;
+      })
+    });
+  };
+
+  const saveTask = (values): void => {
+    setTask(values);
+    ajax.post('/task', { taskRequest: values });
   };
 
   return (
     <div className='form-container'>
       <div className='form'>
         <Typography variant='h4' className='title'>Új feladat</Typography>
-        <form onSubmit={formik.handleSubmit}>
-          <TextField id='taskName' label='Feladat neve' value={formik.values.taskName} onChange={formik.handleChange} fullWidth />
-          <TextField id='taskDescription' label='Feladat leírása' multiline value={formik.values.taskDescription} onChange={formik.handleChange} fullWidth />
-        </form>
 
-        <Typography variant='h4'>Nyelvek</Typography>
+        <CodyForm model={task} onSubmit={saveTask}>
+          <InputField attr='taskName' label='Feladat neve' />
+          <InputField attr='taskDescription' label='Feladat leírása' />
 
-        {taskForLanguages.map((taskForLanguage: TaskForLanguageType, ind: number) => (
-          <LanguageForm taskForLanguage={taskForLanguage} key={taskForLanguage.language} removeLanguage={() => removeLanguage(ind)}/>
-        ))}
+          <Typography variant='h4'>Nyelvek</Typography>
+          {task.taskForLanguages.map((taskForLanguage: TaskForLanguageType, ind: number) => (
+            <LanguageForm
+              {...taskForLanguage}
+              languageInd={ind}
+              removeLanguage={() => removeLanguage(ind)}
+              removeGroup={removeGroup}
+              addNewGroup={addNewGroup}
+              key={taskForLanguage.language || `language-${ind}`}
+            />
+          ))}
+          <Button variant='contained' onClick={addLanguage}>Új nyelv</Button>
 
-        <Button variant='contained' onClick={createNewTaskForLanguage}>Új nyelv</Button>
-        <Button variant='contained' onClick={saveTask} className='float-right'>Mentés</Button>
+          <br />
+          <br />
+          <Button type='submit' variant='contained'>Mentés</Button>
+        </CodyForm>
       </div>
     </div>
   );

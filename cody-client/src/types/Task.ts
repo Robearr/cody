@@ -1,3 +1,9 @@
+export enum ProgrammingLanguage {
+  KOTLIN = 'Kotlin',
+  JAVA = 'Java',
+  JAVASCRIPT = 'JavaScript',
+};
+
 export type ClassType = {
   className: string;
   classSource: string;
@@ -13,13 +19,13 @@ export type TestType = {
 };
 
 export type TaskForLanguageType = {
-  language: string;
+  language: ProgrammingLanguage;
   classes: ClassType[];
   tests: TestType[];
 };
 
 export type Task = {
-  uuid: string;
+  uuid: string | null;
   taskName: string;
   taskDescription: string;
   taskForLanguages: TaskForLanguageType[];

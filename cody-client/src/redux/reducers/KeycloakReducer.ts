@@ -4,7 +4,6 @@ import { setKeycloakToken } from '../actions/keycloak';
 
 const initialState: KeyCloakDataType = {
   token: null,
-  loginUrl: null,
 };
 
 export const KeycloakReducer = createReducer(initialState, (builder) => {
