@@ -18,13 +18,14 @@ export const CodyRouter: React.FC<CodyRouterProps> = () => {
           <img src={logo} alt='logo' style={{ width: '20%' }} />
         </Link>
         <Link to={`/tasks`} color='inherit'><Typography variant='h6'>Feladatok</Typography></Link>
-        <Link to={`/new-task`} color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
+        <Link to={`/tasks/new`} color='inherit'><Typography variant='h6'>Új feladat</Typography></Link>
       </AppBar>
       <Routes>
         <Route path='/' element={<Authenticated />}>
           <Route path='/' element={<Index />} />
           <Route path='/tasks' element={<Tasks />} />
-          <Route path='/new-task' element={<NewTask />} />
+          <Route path='/tasks/:uuid' element={<NewTask />} />
+          <Route path='/task/new' element={<NewTask />} />
         </Route>
       </Routes>
     </Router>

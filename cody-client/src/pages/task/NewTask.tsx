@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Task, TaskForLanguageType } from "../../types/Task";
 import { LanguageForm } from "../../modules/task/LanguageForm";
 
@@ -7,10 +7,12 @@ import '../../styles/form.scss';
 import { useAjax } from '../../hooks/useAjax';
 import { CodyForm } from '../../ui/form/CodyForm';
 import { InputField } from '../../ui/form/InputField';
+import { useParams } from 'react-router';
 
 interface NewTaskProps { };
 
 export const NewTask: React.FC<NewTaskProps> = () => {
+  const { uuid } = useParams();
   const [task, setTask] = useState<Task>({
     taskDescription: '',
     taskName: '',
@@ -105,6 +107,14 @@ export const NewTask: React.FC<NewTaskProps> = () => {
     setTask(values);
     ajax.post('/task', { taskRequest: values });
   };
+
+  useEffect(() => {
+    if (uuid) {
+      ajax.get(`/task/${uuid}`).then((task) => {
+        setTask(task);
+      });
+    }
+  }, [uuid]);
 
   return (
     <div className='form-container'>
