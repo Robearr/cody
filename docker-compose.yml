@@ -12,7 +12,7 @@ services:
       - "8766:3000"
     volumes:
       - node:/app/node_modules
-      - ./:/app
+      - ./cody-client:/usr/src/app
 volumes:
   node:
   maven:
