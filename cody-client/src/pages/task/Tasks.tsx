@@ -40,7 +40,7 @@ export const Tasks: React.FC<TasksProps> = () => {
 
       try {
         const { response } = await ajax.post('/task/listTasks', body);
-        setTasks(response.content);
+        setTasks(response.content ?? []);
       } catch (e) {
         addMessage({ severity: 'ERROR', message: 'Váratlan hiba történt a feladatok lekérdezése közben!' });
       }
