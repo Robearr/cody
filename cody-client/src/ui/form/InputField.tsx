@@ -1,7 +1,7 @@
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import DayjsUtils from '@date-io/dayjs';
 import { Checkbox, FormControlLabel, InputLabel, MenuItem, Select, Switch, TextField } from '@mui/material';
-import { Field } from 'formik';
+import { FastField } from 'formik';
 import dayjs from 'dayjs';
 
 interface InputFieldProps {
@@ -140,9 +140,9 @@ export const InputField: React.FC<InputFieldProps> = ({ type, label, attr, value
 
   return (
     <div className="input-container">
-      <Field name={attr}>
+      <FastField name={attr}>
         {({ field }) => getInputComponent(field)}
-      </Field>
+      </FastField>
     </div>
   );
 };
