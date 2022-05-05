@@ -1,6 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import React from "react";
-import { ClassType, TestType } from "../../types/Task";
+import { ClassType, TestType } from "../../types/task/Task";
+import { ProgrammingLanguage } from '../../types/task/ProgrammingLanguage';
 import { ClassForm } from "../../modules/task/ClassForm";
 import { TestForm } from "../../modules/task/TestForm";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -27,7 +28,7 @@ export const LanguageForm: React.FC<LanguageFormProps> = ({ language, classes, t
         <FontAwesomeIcon icon={faTimes} onClick={removeLanguage} style={{ cursor: 'pointer' }}/>
       </div>
 
-      <InputField attr={`taskForLanguages.${languageInd}.language`} label='Nyelv' type='select' ctValues={['Kotlin', 'Java', 'Javascript']} />
+      <InputField attr={`taskForLanguages.${languageInd}.language`} label='Nyelv' type='select' ctValues={Object.keys(ProgrammingLanguage)} />
 
       <Typography variant="h6">Osztályok</Typography>
       {classes.map((c: ClassType, ind: number) => (
@@ -40,7 +41,6 @@ export const LanguageForm: React.FC<LanguageFormProps> = ({ language, classes, t
         <TestForm key={test.className || `test-${ind}`} attrPrefix={`taskForLanguages.${languageInd}`} ind={ind} removeGroup={() => removeGroup('test', ind)} />
       ))}
       <div className='flex flex-end'><Button variant='contained' onClick={() => addNewGroup('test')}>Új teszt</Button></div>
-
     </div>
   );
 };

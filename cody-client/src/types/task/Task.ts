@@ -1,8 +1,4 @@
-export enum ProgrammingLanguage {
-  KOTLIN = 'Kotlin',
-  JAVA = 'Java',
-  JAVASCRIPT = 'JavaScript',
-};
+import { ProgrammingLanguage } from './ProgrammingLanguage';
 
 export type ClassType = {
   className: string;
