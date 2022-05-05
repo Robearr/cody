@@ -2,11 +2,12 @@ import { Button, Grid, Pagination } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { Pageable } from '../../types/Pageable';
 import { BaseResponse } from '../../types/BaseResponse';
-import { Task } from '../../types/Task';
+import { Task } from '../../types/task/Task';
 import { MessageContext } from '../../providers/MessageProvider';
 import { useAjax } from '../../hooks/useAjax';
 import { TaskCard } from '../../ui/task/TaskCard';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 interface TasksProps {};
 
@@ -17,6 +18,8 @@ export const Tasks: React.FC<TasksProps> = () => {
   const navigate = useNavigate();
   const { ajax } = useAjax();
   const { addMessage } = useContext(MessageContext);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
 
@@ -42,7 +45,7 @@ export const Tasks: React.FC<TasksProps> = () => {
         const { response } = await ajax.post('/task/listTasks', body);
         setTasks(response.content ?? []);
       } catch (e) {
-        addMessage({ severity: 'ERROR', message: 'Váratlan hiba történt a feladatok lekérdezése közben!' });
+        addMessage({ severity: 'ERROR', message: t('exceptions.unexpectedTaskQueryException') });
       }
 
     })();
@@ -55,7 +58,7 @@ export const Tasks: React.FC<TasksProps> = () => {
 
   return (
     <>
-      <Button variant='contained' href='/tasks/new'>Új feladat</Button>
+      <Button variant='contained' href='/tasks/new'>{t('newTask')}</Button>
       <Grid container spacing={2}>
         {tasks.map((task: Task) => (
           <Grid item xs={12} sm={6} md={4} sx={{ cursor: 'pointer' }} key={task.uuid} >

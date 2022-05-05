@@ -1,0 +1,27 @@
+{
+  "save": "Save",
+  "tasks": "Tasks",
+  "newTask": "New task",
+  "flag": "Flag",
+
+  "task": {
+    "name": "Task name",
+    "description": "Task description",
+    "languages": "Languages",
+    "newLanguage": "New language",
+    "newClass": "New class",
+    "newTest": "New test",
+    "language": "Language",
+    "className": "Class name",
+    "classSource": "Class source",
+    "testDescription": "Test description",
+    "methodToCall": "Method to call",
+    "timingTest": "Timing test",
+    "availableLanguages": "Available languages"
+  },
+
+  "exceptions": {
+    "unexpectedTaskQueryException": "Unexpected error occured while querying task",
+    "unexpectedSaveException": "Unexpected error occured while saving"
+  }
+}

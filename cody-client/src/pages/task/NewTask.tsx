@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Task, TaskForLanguageType } from "../../types/Task";
+import { Task, TaskForLanguageType } from "../../types/task/Task";
 import { LanguageForm } from "../../modules/task/LanguageForm";
 
 import '../../styles/form.scss';
@@ -8,6 +8,7 @@ import { useAjax } from '../../hooks/useAjax';
 import { CodyForm } from '../../ui/form/CodyForm';
 import { InputField } from '../../ui/form/InputField';
 import { useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 interface NewTaskProps { };
 
@@ -34,6 +35,7 @@ export const NewTask: React.FC<NewTaskProps> = () => {
   } as Task);
 
   const { ajax } = useAjax();
+  const { t } = useTranslation();
 
   const removeLanguage = (ind: number) => {
     setTask({
@@ -119,13 +121,13 @@ export const NewTask: React.FC<NewTaskProps> = () => {
   return (
     <div className='form-container'>
       <div className='form'>
-        <Typography variant='h4' className='title'>Új feladat</Typography>
+        <Typography variant='h4' className='title'>{t('newTask')}</Typography>
 
         <CodyForm model={task} onSubmit={saveTask}>
-          <InputField attr='taskName' label='Feladat neve' />
-          <InputField attr='taskDescription' label='Feladat leírása' />
+          <InputField attr='taskName' label={t('task.name')} />
+          <InputField attr='taskDescription' label={t('task.description')} />
 
-          <Typography variant='h4'>Nyelvek</Typography>
+          <Typography variant='h4'>{t('task.languages')}</Typography>
           {task.taskForLanguages.map((taskForLanguage: TaskForLanguageType, ind: number) => (
             <LanguageForm
               {...taskForLanguage}
@@ -136,11 +138,11 @@ export const NewTask: React.FC<NewTaskProps> = () => {
               key={taskForLanguage.language || `language-${ind}`}
             />
           ))}
-          <Button variant='contained' onClick={addLanguage}>Új nyelv</Button>
+          <Button variant='contained' onClick={addLanguage}>{t('task.newLanguage')}</Button>
 
           <br />
           <br />
-          <Button type='submit' variant='contained'>Mentés</Button>
+          <Button type='submit' variant='contained'>{t('save')}</Button>
         </CodyForm>
       </div>
     </div>

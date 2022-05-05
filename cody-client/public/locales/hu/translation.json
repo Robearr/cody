@@ -1,0 +1,27 @@
+{
+  "save": "Mentés",
+  "tasks": "Feladatok",
+  "newTask": "Új feladat",
+  "flag": "Zászló",
+
+  "task": {
+    "name": "Feladat neve",
+    "description": "Feladat leírása",
+    "languages": "Nyelvek",
+    "newLanguage": "Új nyelv",
+    "newClass": "Új osztály",
+    "newTest": "Új teszt",
+    "language": "Nyelv",
+    "className": "Osztály neve",
+    "classSource": "Osztály forrása",
+    "testDescription": "Teszt leírása",
+    "methodToCall": "Meghívandó metódus",
+    "timingTest": "Időmérő teszt",
+    "availableLanguages": "Elérhető nyelvek"
+  },
+
+  "exceptions": {
+    "unexpectedTaskQueryException": "Váratlan hiba történt a feladatok lekérdezése közben!",
+    "unexpectedSaveException": "Váratlan hiba történt a mentés közben!"
+  }
+}
