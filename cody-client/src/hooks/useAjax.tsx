@@ -1,15 +1,12 @@
 import { useContext, useState } from 'react';
 import { useTypedSelector } from './useTypedSelector';
 import { MessageContext } from '../providers/MessageProvider';
-import { useTranslation } from 'react-i18next';
 
 export const useAjax = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { addMessage } = useContext(MessageContext);
   const { token } = useTypedSelector((state) => state.keycloak);
-
-  const { t } = useTranslation();
 
   const request = (url: string, options?: RequestInit): Promise<any> => {
     setLoading(true);
@@ -34,7 +31,7 @@ export const useAjax = () => {
       }
     ).catch(
       (err: Error) => {
-        addMessage({ severity: 'ERROR', message: t('exceptions.unexpectedSaveException') });
+        addMessage({ severity: 'ERROR', message: 'exceptions.unexpectedSaveException' });
         return Promise.reject(null);
       }
     ).finally(

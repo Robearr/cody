@@ -45,7 +45,7 @@ export const Tasks: React.FC<TasksProps> = () => {
         const { response } = await ajax.post('/task/listTasks', body);
         setTasks(response.content ?? []);
       } catch (e) {
-        addMessage({ severity: 'ERROR', message: t('exceptions.unexpectedTaskQueryException') });
+        addMessage({ severity: 'ERROR', message: 'exceptions.unexpectedTaskQueryException' });
       }
 
     })();

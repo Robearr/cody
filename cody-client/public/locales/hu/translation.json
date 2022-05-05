@@ -8,6 +8,8 @@
     "name": "Feladat neve",
     "description": "Feladat leírása",
     "languages": "Nyelvek",
+    "classes": "Osztályok",
+    "tests": "Tesztek",
     "newLanguage": "Új nyelv",
     "newClass": "Új osztály",
     "newTest": "Új teszt",

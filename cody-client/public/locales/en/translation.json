@@ -8,6 +8,8 @@
     "name": "Task name",
     "description": "Task description",
     "languages": "Languages",
+    "classes": "Classes",
+    "tests": "Tests",
     "newLanguage": "New language",
     "newClass": "New class",
     "newTest": "New test",
